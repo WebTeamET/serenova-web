@@ -1,0 +1,16 @@
+export const CONTENT_TYPE = {
+  SITE_HEADER: 'siteHeader',
+  SITE_FOOTER: 'siteFooter',
+  NAV_ITEM: 'navItem',
+  PAGE: 'page',
+  HERO_SECTION: 'heroSection',
+  CONTENT_SECTION: 'contentSection',
+  IMAGE_CONTENT_SECTION: 'imageContentSection',
+  CARD_GRID_SECTION: 'cardGridSection',
+  GALLERY_SECTION: 'gallerySection',
+  CTA_BANNER_SECTION: 'ctaBannerSection',
+  TESTIMONIAL_SECTION: 'testimonialSection',
+  JOURNAL_SECTION: 'journalSection',
+  NEWSLETTER_SECTION: 'newsletterSection',
+  CONTACT_FORM_SECTION: 'contactFormSection',
+} as const
