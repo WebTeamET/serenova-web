@@ -10,6 +10,7 @@ export default function ServiceCard({
   card: { sys: { id: string }; fields: ServiceCardFields }
 }) {
   const icon = mapImage(card.fields.icon)
+  const hoverCtaText = card.fields.hoverCtaText
 
   return (
     <div className="service-card-item">
@@ -36,8 +37,18 @@ export default function ServiceCard({
         <div className="service-card-item-text mt-14">
           <p className="text-grey-400 leading-150p">{card.fields.description}</p>
         </div>
-        <div className="service-card-item-arrow mt-20 min-1400:mt-[27px]">
-          <Image src={ASSETS.serviceArrowNext} alt="arrow" width={18} height={22} />
+        <div className="service-card-item-arrow mt-20 min-1400:mt-[27px] flex justify-center items-center gap-12">
+          {hoverCtaText && (
+            <p className="text-black transition-all duration-300 ease-in-out max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-[150px]">
+              {hoverCtaText}
+            </p>
+          )}
+          <Image
+            src={hoverCtaText ? ASSETS.travelerArrow : ASSETS.serviceArrowNext}
+            alt="arrow"
+            width={hoverCtaText ? 21 : 18}
+            height={hoverCtaText ? 21 : 22}
+          />
         </div>
       </Link>
     </div>

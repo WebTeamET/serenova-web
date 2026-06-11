@@ -10,7 +10,6 @@ import type { TypeNavItemSkeleton } from './TypeNavItem'
 export interface TypeSiteFooterFields {
   internalName: EntryFieldTypes.Symbol
   marqueeText: EntryFieldTypes.Symbol
-  marqueeSeparator?: EntryFieldTypes.Symbol
   newsletterIcon?: EntryFieldTypes.AssetLink
   newsletterHeading: EntryFieldTypes.Symbol
   newsletterInputPlaceholder?: EntryFieldTypes.Symbol

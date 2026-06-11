@@ -14,6 +14,7 @@ export interface TypeServicesSectionFields {
   cards: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeServiceCardSkeleton>>
   viewAllLabel?: EntryFieldTypes.Symbol
   viewAllUrl?: EntryFieldTypes.Symbol
+  sectionDescription?: EntryFieldTypes.Symbol
 }
 
 export type TypeServicesSectionSkeleton = EntrySkeletonType<

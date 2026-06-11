@@ -10,7 +10,7 @@ export interface TypeServiceCardFields {
   icon: EntryFieldTypes.AssetLink
   title: EntryFieldTypes.Symbol
   description: EntryFieldTypes.Text
-  ctaLabel?: EntryFieldTypes.Symbol
+  hoverCtaText?: EntryFieldTypes.Symbol
   ctaUrl?: EntryFieldTypes.Symbol
 }
 

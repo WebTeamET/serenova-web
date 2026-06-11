@@ -6,16 +6,20 @@ import type {
   LocaleCode,
 } from 'contentful'
 import type { TypeAboutSectionSkeleton } from './TypeAboutSection'
+import type { TypeContactSectionSkeleton } from './TypeContactSection'
+import type { TypeDestinationSectionSkeleton } from './TypeDestinationSection'
 import type { TypeExploreSectionSkeleton } from './TypeExploreSection'
 import type { TypeHeroSectionSkeleton } from './TypeHeroSection'
+import type { TypeImageGallerySectionSkeleton } from './TypeImageGallerySection'
 import type { TypeIntroSectionSkeleton } from './TypeIntroSection'
 import type { TypeJournalSectionSkeleton } from './TypeJournalSection'
+import type { TypeListingSectionSkeleton } from './TypeListingSection'
 import type { TypeOfferSectionSkeleton } from './TypeOfferSection'
-import type { TypePartnerSectionSkeleton } from './TypePartnerSection'
+import type { TypePricingSectionSkeleton } from './TypePricingSection'
 import type { TypeServicesSectionSkeleton } from './TypeServicesSection'
+import type { TypeSpaSectionSkeleton } from './TypeSpaSection'
 import type { TypeTestimonialSectionSkeleton } from './TypeTestimonialSection'
 import type { TypeTourListingSectionSkeleton } from './TypeTourListingSection'
-import type { TypeWhatWeDoSectionSkeleton } from './TypeWhatWeDoSection'
 
 export interface TypePageFields {
   title: EntryFieldTypes.Symbol
@@ -26,16 +30,20 @@ export interface TypePageFields {
   sections: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<
       | TypeAboutSectionSkeleton
+      | TypeContactSectionSkeleton
+      | TypeDestinationSectionSkeleton
       | TypeExploreSectionSkeleton
       | TypeHeroSectionSkeleton
+      | TypeImageGallerySectionSkeleton
       | TypeIntroSectionSkeleton
       | TypeJournalSectionSkeleton
+      | TypeListingSectionSkeleton
       | TypeOfferSectionSkeleton
-      | TypePartnerSectionSkeleton
+      | TypePricingSectionSkeleton
       | TypeServicesSectionSkeleton
+      | TypeSpaSectionSkeleton
       | TypeTestimonialSectionSkeleton
       | TypeTourListingSectionSkeleton
-      | TypeWhatWeDoSectionSkeleton
     >
   >
 }

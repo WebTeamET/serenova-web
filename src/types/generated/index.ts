@@ -4,15 +4,35 @@ export type {
   TypeAboutSectionSkeleton,
 } from './TypeAboutSection'
 export type {
+  TypeContactSection,
+  TypeContactSectionFields,
+  TypeContactSectionSkeleton,
+} from './TypeContactSection'
+export type {
+  TypeDestinationSection,
+  TypeDestinationSectionFields,
+  TypeDestinationSectionSkeleton,
+} from './TypeDestinationSection'
+export type {
   TypeExploreSection,
   TypeExploreSectionFields,
   TypeExploreSectionSkeleton,
 } from './TypeExploreSection'
 export type {
+  TypeGalleryItem,
+  TypeGalleryItemFields,
+  TypeGalleryItemSkeleton,
+} from './TypeGalleryItem'
+export type {
   TypeHeroSection,
   TypeHeroSectionFields,
   TypeHeroSectionSkeleton,
 } from './TypeHeroSection'
+export type {
+  TypeImageGallerySection,
+  TypeImageGallerySectionFields,
+  TypeImageGallerySectionSkeleton,
+} from './TypeImageGallerySection'
 export type {
   TypeIntroSection,
   TypeIntroSectionFields,
@@ -23,6 +43,16 @@ export type {
   TypeJournalSectionFields,
   TypeJournalSectionSkeleton,
 } from './TypeJournalSection'
+export type {
+  TypeListingItem,
+  TypeListingItemFields,
+  TypeListingItemSkeleton,
+} from './TypeListingItem'
+export type {
+  TypeListingSection,
+  TypeListingSectionFields,
+  TypeListingSectionSkeleton,
+} from './TypeListingSection'
 export type { TypeNavItem, TypeNavItemFields, TypeNavItemSkeleton } from './TypeNavItem'
 export type {
   TypeOfferSection,
@@ -31,10 +61,10 @@ export type {
 } from './TypeOfferSection'
 export type { TypePage, TypePageFields, TypePageSkeleton } from './TypePage'
 export type {
-  TypePartnerSection,
-  TypePartnerSectionFields,
-  TypePartnerSectionSkeleton,
-} from './TypePartnerSection'
+  TypePricingSection,
+  TypePricingSectionFields,
+  TypePricingSectionSkeleton,
+} from './TypePricingSection'
 export type {
   TypeServiceCard,
   TypeServiceCardFields,
@@ -52,25 +82,16 @@ export type {
   TypeSiteSettingsFields,
   TypeSiteSettingsSkeleton,
 } from './TypeSiteSettings'
+export type { TypeSpaItem, TypeSpaItemFields, TypeSpaItemSkeleton } from './TypeSpaItem'
+export type { TypeSpaSection, TypeSpaSectionFields, TypeSpaSectionSkeleton } from './TypeSpaSection'
 export type {
   TypeTestimonialSection,
   TypeTestimonialSectionFields,
   TypeTestimonialSectionSkeleton,
 } from './TypeTestimonialSection'
-export type { TypeTour, TypeTourFields, TypeTourSkeleton } from './TypeTour'
-export type {
-  TypeTourDetailItem,
-  TypeTourDetailItemFields,
-  TypeTourDetailItemSkeleton,
-} from './TypeTourDetailItem'
 export type { TypeTourItem, TypeTourItemFields, TypeTourItemSkeleton } from './TypeTourItem'
 export type {
   TypeTourListingSection,
   TypeTourListingSectionFields,
   TypeTourListingSectionSkeleton,
 } from './TypeTourListingSection'
-export type {
-  TypeWhatWeDoSection,
-  TypeWhatWeDoSectionFields,
-  TypeWhatWeDoSectionSkeleton,
-} from './TypeWhatWeDoSection'

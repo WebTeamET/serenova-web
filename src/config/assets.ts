@@ -15,6 +15,8 @@ export const ASSETS = {
 
   // Services
   serviceArrowNext: '/service-arrow-next.svg',
+  travelerArrow: '/traveler-arrow.svg',
+  travelerCardIconBg: '/traveler-card-icon-bg.svg',
 
   // Tours
   tourLeaf: '/tour-leaf.png',
@@ -42,6 +44,30 @@ export const ASSETS = {
   footerLeafRight: `${BASE}/footer-leaf-right.png`,
   footerPlaneIcon: `${BASE}/footer-plane-icon.svg`,
   footerSubscribeIcon: `${BASE}/footer-subscribe-icon.svg`,
+
+  // Journal
+  journalLeaf: '/journal-leaf.png',
+  journalTree: '/journal-tree.png',
+
+  // Contact
+  contactFormLeaf: '/contact-form-leaf.png',
+
+  // Vacation / Destination
+  vacationLeaf: '/vacation-leaf.png',
+  vacationArrow: '/vacation-arrow.svg',
+  placesTree: '/places-tree.png',
+
+  // Spa / Rituals
+  ritualLeaf: '/ritual-leaf.png',
+
+  // What We Do
+  weDoLeaf: '/we-do-leaf.png',
+
+  // Packages / Pricing
+  packageLeaf: '/package-leaf.png',
+
+  // Filter Listing
+  filterTagTick: '/filter-tag-tick.svg',
 
   // Social icons
   social: {

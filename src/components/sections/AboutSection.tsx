@@ -2,13 +2,22 @@
 
 import { useRef, useState, Fragment } from 'react'
 import Image from 'next/image'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay } from 'swiper/modules'
+import 'swiper/css'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { MARKS, BLOCKS } from '@contentful/rich-text-types'
 import type { Document, Text as RichTextNode } from '@contentful/rich-text-types'
+import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import { mapImage } from '@/contentful/mappers'
 import { ASSETS } from '@/config/assets'
 import type { AboutSectionFields } from '@/types/sections'
+
+interface PartnerLogoItem {
+  partnerLogo: string
+  alt: string
+}
 
 function renderHeading(doc: Document) {
   if (!doc?.content) return null
@@ -80,6 +89,9 @@ export default function AboutSection(fields: Record<string, unknown>) {
   const f = fields as unknown as AboutSectionFields
   const img0 = mapImage(f.images?.[0] ?? undefined)
   const img1 = mapImage(f.images?.[1] ?? undefined)
+  const logos = ((f.partnerLogo as unknown as PartnerLogoItem[] | undefined) ?? []).filter(
+    (item) => !!item.partnerLogo
+  )
 
   return (
     <>
@@ -199,6 +211,41 @@ export default function AboutSection(fields: Record<string, unknown>) {
           </div>
         </div>
       </section>
+
+      {/* Partner logos carousel — renders after Best, matching original page order */}
+      {logos.length > 0 && (
+        <section className="companies-main bg-dark-cream py-30 min-1400:py-[45px]">
+          <div className="container-1290">
+            <div className="companies-section">
+              <Swiper
+                className="companies-slider"
+                modules={[Autoplay]}
+                spaceBetween={0}
+                slidesPerView={2}
+                loop={true}
+                autoplay={{ delay: 1500 }}
+                breakpoints={{
+                  576: { slidesPerView: 3 },
+                  768: { slidesPerView: 4 },
+                  1024: { slidesPerView: 5 },
+                  1200: { slidesPerView: 6 },
+                }}
+              >
+                {logos.map((logo, index) => (
+                  <SwiperSlide key={index} className="companies-slide">
+                    <Link
+                      href="/"
+                      className="companies-slide-inside flex justify-center items-center w-fit mx-auto"
+                    >
+                      <img src={logo.partnerLogo} alt={logo.alt || 'partner logo'} />
+                    </Link>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          </div>
+        </section>
+      )}
     </>
   )
 }

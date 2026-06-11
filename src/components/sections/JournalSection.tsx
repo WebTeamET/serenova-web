@@ -1,5 +1,10 @@
+'use client'
+
+import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import Button from '@/components/ui/Button'
+import { ASSETS } from '@/config/assets'
 import type { JournalSectionFields } from '@/types/sections'
 
 interface JournalItemJson {
@@ -26,8 +31,33 @@ export default function JournalSection(fields: Record<string, unknown>) {
     (item) => !!item.title
   )
 
+  const pathname = usePathname()
+  const isHome = pathname === '/'
+
   return (
-    <section className="journal-main relative py-80 min-1400:pt-[147px] min-1400:pb-[204px]">
+    <section
+      className={`journal-main relative py-80 min-1400:pt-[147px] min-1400:pb-[204px] ${isHome ? '' : 'bg-cream'}`}
+    >
+      <div className="journal-leaf absolute top-0 left-0">
+        <Image
+          src={ASSETS.journalLeaf}
+          alt="leaf"
+          width={315}
+          height={234}
+          className="w-[120px] min-768:w-[200px] min-1400:w-auto"
+        />
+      </div>
+      {isHome && (
+        <div className="journal-tree absolute bottom-0 min-1400:bottom-52 right-0">
+          <Image
+            src={ASSETS.journalTree}
+            alt="tree"
+            width={229}
+            height={263}
+            className="w-[80px] min-576:w-[120px] min-1400:w-auto"
+          />
+        </div>
+      )}
       <div className="container-1320">
         <div className="journal-section relative z-1">
           <div className="journal-start">

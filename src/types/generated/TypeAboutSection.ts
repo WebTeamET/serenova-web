@@ -20,6 +20,7 @@ export interface TypeAboutSectionFields {
   experiencesList: EntryFieldTypes.Array<EntryFieldTypes.Symbol>
   experiencesCtaLabel?: EntryFieldTypes.Symbol
   experiencesCtaUrl?: EntryFieldTypes.Symbol
+  partnerLogo?: EntryFieldTypes.Object
 }
 
 export type TypeAboutSectionSkeleton = EntrySkeletonType<TypeAboutSectionFields, 'aboutSection'>
