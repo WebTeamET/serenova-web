@@ -25,3 +25,7 @@ function buildFieldSchema(field: FormField): z.ZodTypeAny {
 export function buildSchema(fields: FormField[]) {
   return z.object(Object.fromEntries(fields.map((f) => [f.id, buildFieldSchema(f)])))
 }
+
+export function isValidEmail(value: string): boolean {
+  return z.string().email().safeParse(value).success
+}

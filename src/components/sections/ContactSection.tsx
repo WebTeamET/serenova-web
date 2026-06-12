@@ -28,9 +28,7 @@ const DEFAULT_FIELDS: FormField[] = [
   },
 ]
 
-export default function ContactSection(fields: Record<string, unknown>) {
-  const f = fields as unknown as ContactSectionFields
-
+export default function ContactSection(f: ContactSectionFields) {
   const image = mapImage(f.image)
   const formFields: FormField[] =
     Array.isArray(f.formFieldsJson) && (f.formFieldsJson as unknown[]).length
@@ -41,6 +39,7 @@ export default function ContactSection(fields: Record<string, unknown>) {
 
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [errors, setErrors] = useState<Record<string, string[]>>({})
+  const [agreeError, setAgreeError] = useState('')
 
   function clearFieldError(id: string) {
     if (errors[id])
@@ -61,7 +60,13 @@ export default function ContactSection(fields: Record<string, unknown>) {
       setErrors(Object.fromEntries(Object.entries(fieldErrors).map(([k, v]) => [k, v ?? []])))
       return
     }
+    const agreeChecked = form.querySelector<HTMLInputElement>('#contact-agree')?.checked ?? false
+    if (!agreeChecked) {
+      setAgreeError('You must agree to the privacy policy before submitting.')
+      return
+    }
     setErrors({})
+    setAgreeError('')
     setStatus('submitting')
     const res = await fetch('/api/contact', {
       method: 'POST',
@@ -125,11 +130,15 @@ export default function ContactSection(fields: Record<string, unknown>) {
                         key={input.id ?? index}
                         className="contact-form-input relative mb-30 min-1400:mb-54 pl-[43px] pb-15 border-b-[1px] border-solid border-grey-400"
                       >
+                        <label htmlFor={`contact-field-${input.id}`} className="sr-only">
+                          {input.label}
+                        </label>
                         <div className="contact-form-input-icon absolute left-0 top-0">
                           {getContactFieldIcon(input)}
                         </div>
                         {input.type === 'textarea' ? (
                           <textarea
+                            id={`contact-field-${input.id}`}
                             name={input.id}
                             placeholder={input.label}
                             onChange={() => clearFieldError(input.id)}
@@ -139,6 +148,7 @@ export default function ContactSection(fields: Record<string, unknown>) {
                           />
                         ) : (
                           <input
+                            id={`contact-field-${input.id}`}
                             name={input.id}
                             type={input.type}
                             placeholder={input.label}
@@ -152,25 +162,29 @@ export default function ContactSection(fields: Record<string, unknown>) {
                         )}
                       </div>
                     ))}
-                    <div className="footer-form-agreement flex items-center">
-                      <input
-                        type="checkbox"
-                        name="agree"
-                        id="contact-agree"
-                        className="invisible w-0 h-0"
-                      />
-                      <label
-                        htmlFor="contact-agree"
-                        className="text-14 leading-[157.143%] text-secondary-900"
-                      >
-                        I agree With the site&apos;s{' '}
-                        <Link
-                          href={(f.privacyPolicyLink as string | undefined) ?? '/'}
-                          className="leading-100p underline hover:text-black"
+                    <div className="footer-form-agreement flex flex-col items-start gap-y-6">
+                      <div className="flex items-center gap-x-8">
+                        <input
+                          type="checkbox"
+                          name="agree"
+                          id="contact-agree"
+                          onChange={() => agreeError && setAgreeError('')}
+                          className="w-4 h-4 cursor-pointer accent-secondary-900"
+                        />
+                        <label
+                          htmlFor="contact-agree"
+                          className="text-14 leading-[157.143%] text-secondary-900"
                         >
-                          privacy policy.
-                        </Link>
-                      </label>
+                          I agree With the site&apos;s{' '}
+                          <Link
+                            href={(f.privacyPolicyLink as string | undefined) ?? '/'}
+                            className="leading-100p underline hover:text-black"
+                          >
+                            privacy policy.
+                          </Link>
+                        </label>
+                      </div>
+                      {agreeError && <p className="text-12 text-red-600">{agreeError}</p>}
                     </div>
                     {status === 'error' && (
                       <p className="mt-12 text-14 text-red-600">
@@ -194,7 +208,6 @@ export default function ContactSection(fields: Record<string, unknown>) {
         </div>
       </section>
 
-      {/* ── Count Stats ── */}
       {stats.length > 0 && (
         <section className="count-main pt-30 pb-60 min-1400:pt-16 min-1400:pb-[147px]">
           <div className="container-1330">

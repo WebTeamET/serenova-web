@@ -8,9 +8,7 @@ import type { ImageGallerySectionFields } from '@/types/sections'
 const INITIAL_COUNT = 12
 const LOAD_MORE_COUNT = 6
 
-export default function ImageGallerySection(fields: Record<string, unknown>) {
-  const f = fields as unknown as ImageGallerySectionFields
-
+export default function ImageGallerySection(f: ImageGallerySectionFields) {
   const items = (f.items ?? []).filter((item): item is NonNullable<typeof item> => item != null)
 
   const filterTags = ['All', ...(f.categories ?? [])]

@@ -4,10 +4,9 @@ import { useRef, useState, Fragment } from 'react'
 import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
-import 'swiper/css'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-import { MARKS, BLOCKS } from '@contentful/rich-text-types'
 import type { Document, Text as RichTextNode } from '@contentful/rich-text-types'
+import { richTextBodyOptions as bodyOptions } from '@/utils/richText'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import { mapImage } from '@/contentful/mappers'
@@ -17,6 +16,7 @@ import type { AboutSectionFields } from '@/types/sections'
 interface PartnerLogoItem {
   partnerLogo: string
   alt: string
+  link?: string
 }
 
 function renderHeading(doc: Document) {
@@ -39,15 +39,6 @@ function renderHeading(doc: Document) {
   ))
 }
 
-const bodyOptions = {
-  renderMark: {
-    [MARKS.BOLD]: (text: React.ReactNode) => <strong>{text}</strong>,
-  },
-  renderNode: {
-    [BLOCKS.PARAGRAPH]: (_: unknown, children: React.ReactNode) => <>{children}</>,
-  },
-}
-
 function VideoCard({ asset }: { asset: NonNullable<AboutSectionFields['experiencesVideo']> }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [showOverlay, setShowOverlay] = useState(true)
@@ -56,12 +47,16 @@ function VideoCard({ asset }: { asset: NonNullable<AboutSectionFields['experienc
   if (!rawUrl) return null
   const src = rawUrl.startsWith('//') ? `https:${rawUrl}` : rawUrl
 
+  function handlePlay() {
+    videoRef.current?.play().catch(() => {})
+  }
+
   return (
-    <div className="video-wrapper" onMouseEnter={() => videoRef.current?.play()}>
+    <div className="video-wrapper" onClick={handlePlay}>
       {showOverlay && (
-        <div className="video-overlay">
+        <div className="video-overlay" style={{ pointerEvents: 'none' }}>
           <div className="pause-icon">
-            <img src={ASSETS.bestPause} alt="pause" width={50} height={51} />
+            <img src={ASSETS.bestPause} alt="play" width={50} height={51} />
           </div>
         </div>
       )}
@@ -85,17 +80,15 @@ function VideoCard({ asset }: { asset: NonNullable<AboutSectionFields['experienc
   )
 }
 
-export default function AboutSection(fields: Record<string, unknown>) {
-  const f = fields as unknown as AboutSectionFields
+export default function AboutSection(f: AboutSectionFields) {
   const img0 = mapImage(f.images?.[0] ?? undefined)
   const img1 = mapImage(f.images?.[1] ?? undefined)
-  const logos = ((f.partnerLogo as unknown as PartnerLogoItem[] | undefined) ?? []).filter(
+  const logos = ((f.partnerLogo as PartnerLogoItem[] | undefined) ?? []).filter(
     (item) => !!item.partnerLogo
   )
 
   return (
     <>
-      {/* About section */}
       <section className="about-main relative bg-dark-cream py-60 min-1400:py-[92px]">
         <div className="about-leaf absolute right-0 top-20 min-990:top-60 min-1400:top-100 z-0">
           <Image
@@ -130,7 +123,6 @@ export default function AboutSection(fields: Record<string, unknown>) {
         </div>
       </section>
 
-      {/* Best / Experiences section */}
       <section className="best-main relative bg-dark-cream py-60 min-1400:py-[130px]">
         <div className="best-bird max-990:hidden absolute top-30 min-1400:top-[83px] right-[49px] z-0">
           <Image src={ASSETS.bestBird} alt="birds" width={183} height={77} />
@@ -212,7 +204,6 @@ export default function AboutSection(fields: Record<string, unknown>) {
         </div>
       </section>
 
-      {/* Partner logos carousel — renders after Best, matching original page order */}
       {logos.length > 0 && (
         <section className="companies-main bg-dark-cream py-30 min-1400:py-[45px]">
           <div className="container-1290">
@@ -234,7 +225,7 @@ export default function AboutSection(fields: Record<string, unknown>) {
                 {logos.map((logo, index) => (
                   <SwiperSlide key={index} className="companies-slide">
                     <Link
-                      href="/"
+                      href={logo.link ?? '/'}
                       className="companies-slide-inside flex justify-center items-center w-fit mx-auto"
                     >
                       <img src={logo.partnerLogo} alt={logo.alt || 'partner logo'} />

@@ -8,8 +8,6 @@ import { mapImage } from '@/contentful/mappers'
 import Button from '@/components/ui/Button'
 import type { HeroSectionFields } from '@/types/sections'
 
-// ── Collage layout ────────────────────────────────────────────────────────────
-
 function CollageLayout({ f }: { f: HeroSectionFields }) {
   const images = (f.images ?? []).map(mapImage).filter(Boolean)
   const bannerImagesRef = useRef<(HTMLDivElement | null)[]>([])
@@ -113,8 +111,6 @@ function CollageLayout({ f }: { f: HeroSectionFields }) {
   )
 }
 
-// ── Inner Hero layout ─────────────────────────────────────────────────────────
-
 function InnerHeroLayout({ f }: { f: HeroSectionFields }) {
   const bg = f.backgroundImage ? mapImage(f.backgroundImage) : null
 
@@ -149,8 +145,6 @@ function InnerHeroLayout({ f }: { f: HeroSectionFields }) {
     </section>
   )
 }
-
-// ── Feature Hero (CTA banner) layout ─────────────────────────────────────────
 
 function FeatureHeroLayout({ f }: { f: HeroSectionFields }) {
   const bg = f.backgroundImage ? mapImage(f.backgroundImage) : null
@@ -214,11 +208,7 @@ function FeatureHeroLayout({ f }: { f: HeroSectionFields }) {
   )
 }
 
-// ── Unified export ────────────────────────────────────────────────────────────
-
-export default function HeroSection(fields: Record<string, unknown>) {
-  const f = fields as unknown as HeroSectionFields
-
+export default function HeroSection(f: HeroSectionFields) {
   if (f.style === 'collage') return <CollageLayout f={f} />
   if (f.style === 'innerHero') return <InnerHeroLayout f={f} />
   if (f.style === 'featureHero') return <FeatureHeroLayout f={f} />

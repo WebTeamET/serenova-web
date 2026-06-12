@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import type { SiteFooterData } from '@/contentful/footer.service'
 import { ASSETS } from '@/config/assets'
+import { isValidEmail } from '@/utils/formValidation'
 
 const PLATFORM_ICONS: Record<string, string> = {
   facebook: ASSETS.social.facebook,
@@ -20,10 +21,19 @@ interface FooterProps {
 
 export default function Footer({ data }: FooterProps) {
   const [email, setEmail] = useState('')
+  const [emailError, setEmailError] = useState('')
   const [subStatus, setSubStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
 
   async function handleSubscribe() {
-    if (!email) return
+    if (!email) {
+      setEmailError('Email address is required.')
+      return
+    }
+    if (!isValidEmail(email)) {
+      setEmailError('Please enter a valid email address.')
+      return
+    }
+    setEmailError('')
     setSubStatus('submitting')
     const res = await fetch('/api/contact', {
       method: 'POST',
@@ -48,7 +58,6 @@ export default function Footer({ data }: FooterProps) {
 
   return (
     <>
-      {/* Marquee — separate from footer element, matches HTML App.jsx order */}
       <section className="marquee-start bg-cream pt-30 min-1400:pt-50">
         <div className="marquee">
           <div className="track">
@@ -64,6 +73,7 @@ export default function Footer({ data }: FooterProps) {
       <footer className="footer relative bg-cream">
         <div className="footer-leaf-left absolute top-[45px] left-0 z-0 max-640:hidden">
           <img
+            loading="lazy"
             src={ASSETS.footerLeafLeft}
             alt="leaf"
             width={290}
@@ -73,6 +83,7 @@ export default function Footer({ data }: FooterProps) {
         </div>
         <div className="footer-leaf-right absolute top-[5px] right-0 z-0 max-640:hidden">
           <img
+            loading="lazy"
             src={ASSETS.footerLeafRight}
             alt="leaf"
             width={375}
@@ -87,6 +98,7 @@ export default function Footer({ data }: FooterProps) {
               <div className="footer-above-details max-w-[320px] min-640:max-w-[363px] mx-auto mb-20 min-1200:mb-32">
                 <div className="footer-above-icon mb-16 min-1200:mb-22">
                   <img
+                    loading="lazy"
                     src={data.newsletterIcon ?? ASSETS.footerPlaneIcon}
                     alt="icon"
                     width={42}
@@ -107,16 +119,32 @@ export default function Footer({ data }: FooterProps) {
                   <>
                     <div className="footer-form-input-box max-w-[631px] mx-auto flex justify-center">
                       <div className="footer-form-input flex-[0_0_calc(100%_-_143px)]">
+                        <label htmlFor="footer-email" className="sr-only">
+                          Email address
+                        </label>
                         <input
                           type="email"
                           name="email"
                           id="footer-email"
                           value={email}
-                          onChange={(e) => setEmail(e.target.value)}
+                          onChange={(e) => {
+                            setEmail(e.target.value)
+                            setEmailError('')
+                          }}
                           onKeyDown={(e) => e.key === 'Enter' && handleSubscribe()}
                           placeholder={data.newsletterInputPlaceholder}
+                          aria-describedby={emailError ? 'footer-email-error' : undefined}
+                          aria-invalid={!!emailError}
                           className="px-14 min-640:px-[27px] py-10 w-full h-[55px] bg-white font-poppins font-regular text-[15px] leading-150p text-black tracking-[0.1px] placeholder:text-[15px] placeholder:leading-150p placeholder:text-grey-400 placeholder:tracking-[0.1px]"
                         />
+                        {emailError && (
+                          <p
+                            id="footer-email-error"
+                            className="absolute left-0 -bottom-5 text-12 text-red-600"
+                          >
+                            {emailError}
+                          </p>
+                        )}
                       </div>
                       <button
                         onClick={handleSubscribe}
@@ -124,6 +152,7 @@ export default function Footer({ data }: FooterProps) {
                         className="footer-form-subscribe-btn group flex-[0_0_120px] min-640:flex-[0_0_143px] flex items-center justify-center gap-[11px] p-6 cursor-pointer bg-white relative after:content-[''] after:absolute after:w-[1px] after:h-[29px] after:top-50p after:left-0 after:translate-y-50mp after:bg-secondary-800 disabled:opacity-60"
                       >
                         <img
+                          loading="lazy"
                           src={ASSETS.footerSubscribeIcon}
                           alt="icon"
                           width={16}
@@ -199,10 +228,9 @@ export default function Footer({ data }: FooterProps) {
                           aria-label={item.accessibleLabel}
                         >
                           <img
+                            loading="lazy"
                             src={PLATFORM_ICONS[item.platform] ?? ASSETS.social.dribble}
                             alt={item.accessibleLabel}
-                            width="auto"
-                            height="auto"
                           />
                         </a>
                       </li>

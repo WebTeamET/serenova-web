@@ -4,7 +4,6 @@ import { useState, useRef } from 'react'
 import type { SwiperClass } from 'swiper/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, FreeMode, Thumbs } from 'swiper/modules'
-import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/free-mode'
 import 'swiper/css/thumbs'
@@ -13,13 +12,9 @@ import { mapImage } from '@/contentful/mappers'
 import { ASSETS } from '@/config/assets'
 import type { SpaSectionFields, SpaItemFields } from '@/types/sections'
 
-export default function SpaSection(fields: Record<string, unknown>) {
-  const f = fields as unknown as SpaSectionFields
-
+export default function SpaSection(f: SpaSectionFields) {
   return f.style === 'gallery' ? <GalleryLayout f={f} /> : <CarouselLayout f={f} />
 }
-
-// ── Carousel (Rituals) ────────────────────────────────────────────────────────
 
 function CarouselLayout({ f }: { f: SpaSectionFields }) {
   const [activeIndex, setActiveIndex] = useState(1)
@@ -84,12 +79,7 @@ function CarouselLayout({ f }: { f: SpaSectionFields }) {
                     <div className="ritual-card-section">
                       <div className="ritual-card-image relative after:content-[''] after:absolute after:w-full after:h-[345px] after:max-h-full after:bottom-0 after:left-0 after:bg-[linear-gradient(0deg,_#000_0%,_rgba(0,_0,_0,_0.00)_100%)] after:transition-all after:duration-300 after:ease-in-out after:opacity-0">
                         {img && (
-                          <img
-                            src={img.url}
-                            alt={img.alt || item.fields?.title}
-                            width="auto"
-                            height="auto"
-                          />
+                          <img loading="lazy" src={img.url} alt={img.alt || item.fields?.title} />
                         )}
                         <div className="ritual-card-details absolute w-full h-full bottom-0 left-0 z-1 flex flex-col justify-end px-30 py-30 min-1600:py-42 transition-all duration-300 ease-in-out">
                           <div className="ritual-card-details-inside max-w-[560px] mx-auto">
@@ -162,8 +152,6 @@ function CarouselLayout({ f }: { f: SpaSectionFields }) {
   )
 }
 
-// ── Gallery (Indulge) ─────────────────────────────────────────────────────────
-
 function GalleryLayout({ f }: { f: SpaSectionFields }) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null)
   const mainSwiperRef = useRef<SwiperClass | null>(null)
@@ -203,10 +191,9 @@ function GalleryLayout({ f }: { f: SpaSectionFields }) {
                   {images.map((img, index) => (
                     <SwiperSlide key={index}>
                       <img
+                        loading="lazy"
                         src={img.url}
                         alt={img.alt || `spa image ${index + 1}`}
-                        width="auto"
-                        height="auto"
                         className="w-full h-auto aspect-[1.66/1] object-cover"
                       />
                     </SwiperSlide>
@@ -238,10 +225,9 @@ function GalleryLayout({ f }: { f: SpaSectionFields }) {
                       className="cursor-pointer relative after:content-[''] after:absolute after:w-[calc(100%_-_4px)] after:h-[calc(100%_-_4px)] after:left-0 after:top-0 after:border-[1px] after:border-solid after:border-secondary-900 after:opacity-0 after:transition-all after:duration-300 after:ease-in-out max-990:!h-auto"
                     >
                       <img
+                        loading="lazy"
                         src={img.url}
                         alt={img.alt || `thumb ${index + 1}`}
-                        width="auto"
-                        height="auto"
                         className="w-full h-full min-1400:h-auto min-1400:aspect-[1.27/1] object-cover inline-block pr-4 transition-all duration-300 ease-in-out"
                       />
                     </SwiperSlide>

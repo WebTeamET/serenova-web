@@ -15,7 +15,8 @@ import SpaSection from '@/components/sections/SpaSection'
 import DestinationSection from '@/components/sections/DestinationSection'
 import PricingSection from '@/components/sections/PricingSection'
 
-export const sectionRegistry: Record<string, ComponentType<Record<string, unknown>>> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const sectionRegistry: Record<string, ComponentType<any>> = {
   heroSection: HeroSection,
   servicesSection: ServicesSection,
   aboutSection: AboutSection,

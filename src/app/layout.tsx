@@ -1,13 +1,31 @@
 import type { Metadata } from 'next'
+import { draftMode } from 'next/headers'
 import '@/styles/globals.css'
+import 'swiper/css'
 import HeaderWrapper from '@/components/layout/HeaderWrapper'
 import Footer from '@/components/layout/Footer'
+import ContentfulPreviewProvider from '@/components/providers/ContentfulPreviewProvider'
+import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider'
 import { getSiteHeader } from '@/contentful/header.service'
 import { getSiteFooter } from '@/contentful/footer.service'
+import { appConfig } from '@/config/app'
+
+export const revalidate = 90
 
 export const metadata: Metadata = {
-  title: 'Serenova',
+  metadataBase: new URL(appConfig.url),
+  title: {
+    default: appConfig.name,
+    template: `%s | ${appConfig.name}`,
+  },
   description: 'Serenova Resort',
+  openGraph: {
+    siteName: appConfig.name,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 }
 
 export default async function RootLayout({
@@ -15,6 +33,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const { isEnabled: isPreview } = await draftMode()
   const [headerData, footerData] = await Promise.all([getSiteHeader(), getSiteFooter()])
 
   return (
@@ -28,9 +47,19 @@ export default async function RootLayout({
         />
       </head>
       <body>
-        {headerData && <HeaderWrapper data={headerData} />}
-        {children}
-        {footerData && <Footer data={footerData} />}
+        <SmoothScrollProvider>
+          <ContentfulPreviewProvider isPreview={isPreview}>
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:underline"
+            >
+              Skip to content
+            </a>
+            {headerData && <HeaderWrapper data={headerData} />}
+            {children}
+            {footerData && <Footer data={footerData} />}
+          </ContentfulPreviewProvider>
+        </SmoothScrollProvider>
       </body>
     </html>
   )

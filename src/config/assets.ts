@@ -2,25 +2,25 @@ const BASE = '/assets/images'
 
 export const ASSETS = {
   // Banner / Hero
-  bannerTree: '/banner-tree.png',
-  bannerDetailLeaf: '/banner-detail-leaf.png',
-  bannerDownArrow: '/banner-down-arrow.svg',
+  bannerTree: `${BASE}/banner-tree.png`,
+  bannerDetailLeaf: `${BASE}/banner-detail-leaf.png`,
+  bannerDownArrow: `${BASE}/banner-down-arrow.svg`,
 
   // About / Best
-  aboutLeaf: '/about-leaf.png',
-  bestBird: '/best-bird.png',
-  bestTree: '/best-tree.png',
-  bestPause: '/best-pause.png',
-  videoPlaceholder: '/video-placeholder.webp',
+  aboutLeaf: `${BASE}/about-leaf.png`,
+  bestBird: `${BASE}/best-bird.png`,
+  bestTree: `${BASE}/best-tree.png`,
+  bestPause: `${BASE}/best-pause.png`,
+  videoPlaceholder: `${BASE}/video-placeholder.webp`,
 
   // Services
-  serviceArrowNext: '/service-arrow-next.svg',
-  travelerArrow: '/traveler-arrow.svg',
-  travelerCardIconBg: '/traveler-card-icon-bg.svg',
+  serviceArrowNext: `${BASE}/service-arrow-next.svg`,
+  travelerArrow: `${BASE}/traveler-arrow.svg`,
+  travelerCardIconBg: `${BASE}/traveler-card-icon-bg.svg`,
 
   // Tours
-  tourLeaf: '/tour-leaf.png',
-  tourTree: '/tour-tree.png',
+  tourLeaf: `${BASE}/tour-leaf.png`,
+  tourTree: `${BASE}/tour-tree.png`,
 
   // Offers
   offerLeaf: `${BASE}/offer-leaf.png`,
@@ -46,28 +46,28 @@ export const ASSETS = {
   footerSubscribeIcon: `${BASE}/footer-subscribe-icon.svg`,
 
   // Journal
-  journalLeaf: '/journal-leaf.png',
-  journalTree: '/journal-tree.png',
+  journalLeaf: `${BASE}/journal-leaf.png`,
+  journalTree: `${BASE}/journal-tree.png`,
 
   // Contact
-  contactFormLeaf: '/contact-form-leaf.png',
+  contactFormLeaf: `${BASE}/contact-form-leaf.png`,
 
   // Vacation / Destination
-  vacationLeaf: '/vacation-leaf.png',
-  vacationArrow: '/vacation-arrow.svg',
-  placesTree: '/places-tree.png',
+  vacationLeaf: `${BASE}/vacation-leaf.png`,
+  vacationArrow: `${BASE}/vacation-arrow.svg`,
+  placesTree: `${BASE}/places-tree.png`,
 
   // Spa / Rituals
-  ritualLeaf: '/ritual-leaf.png',
+  ritualLeaf: `${BASE}/ritual-leaf.png`,
 
   // What We Do
-  weDoLeaf: '/we-do-leaf.png',
+  weDoLeaf: `${BASE}/we-do-leaf.png`,
 
   // Packages / Pricing
-  packageLeaf: '/package-leaf.png',
+  packageLeaf: `${BASE}/package-leaf.png`,
 
   // Filter Listing
-  filterTagTick: '/filter-tag-tick.svg',
+  filterTagTick: `${BASE}/filter-tag-tick.svg`,
 
   // Social icons
   social: {

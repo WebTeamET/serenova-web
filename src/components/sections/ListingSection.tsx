@@ -4,12 +4,9 @@ import { useState } from 'react'
 import FilterCard from '@/components/ui/FilterCard'
 import type { ListingSectionFields } from '@/types/sections'
 
-export default function ListingSection(fields: Record<string, unknown>) {
-  const f = fields as unknown as ListingSectionFields
-
+export default function ListingSection(f: ListingSectionFields) {
   const items = (f.items ?? []).filter((item): item is NonNullable<typeof item> => item != null)
 
-  // Category field is stored as "Cat1 / Cat2" — split to support multi-category filtering
   const categories = [
     'All',
     ...Array.from(

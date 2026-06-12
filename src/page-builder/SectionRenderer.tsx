@@ -1,5 +1,6 @@
 import { sectionRegistry } from './sectionRegistry'
 import type { PageSection } from '@/types/section'
+import RevealSection from '@/components/ui/RevealSection'
 
 interface SectionRendererProps {
   section: PageSection
@@ -15,5 +16,13 @@ export function SectionRenderer({ section }: SectionRendererProps) {
     return null
   }
 
-  return <Component {...section.fields} />
+  if (section.type === 'heroSection') {
+    return <Component {...section.fields} />
+  }
+
+  return (
+    <RevealSection>
+      <Component {...section.fields} />
+    </RevealSection>
+  )
 }

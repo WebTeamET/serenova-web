@@ -30,6 +30,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# app error logs
+/logs
+
 # env files (can opt-in for committing if needed)
 .env*
 
@@ -39,5 +42,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
 cms
 memory
+certificates

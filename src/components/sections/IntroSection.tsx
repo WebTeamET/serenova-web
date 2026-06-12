@@ -1,15 +1,8 @@
 import Image from 'next/image'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-import { MARKS } from '@contentful/rich-text-types'
-import { ASSETS } from '@/config/assets'
 import type { Document } from '@contentful/rich-text-types'
-import type { ReactNode } from 'react'
-
-const richTextOptions = {
-  renderMark: {
-    [MARKS.BOLD]: (text: ReactNode) => <span>{text}</span>,
-  },
-}
+import { ASSETS } from '@/config/assets'
+import { richTextOptions } from '@/utils/richText'
 
 export default function IntroSection(fields: Record<string, unknown>) {
   const eyebrow = fields.eyebrow as string | undefined

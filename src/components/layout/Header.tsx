@@ -17,6 +17,9 @@ export default function Header({ data, type = 'default' }: HeaderProps) {
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto'
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
   }, [isMenuOpen])
 
   const logo = isInside ? data.logoDark : data.logoLight
@@ -34,6 +37,7 @@ export default function Header({ data, type = 'default' }: HeaderProps) {
             </div>
 
             <div
+              id="main-nav"
               className={`
               header-menu min-1200:block
               ${isMenuOpen ? 'block fixed top-0 left-0 w-full h-[100dvh] bg-body z-9 overflow-auto' : 'hidden'}
@@ -64,6 +68,7 @@ export default function Header({ data, type = 'default' }: HeaderProps) {
                   <Link
                     href={data.ctaUrl}
                     target={data.ctaOpenNewTab ? '_blank' : undefined}
+                    rel={data.ctaOpenNewTab ? 'noopener noreferrer' : undefined}
                     className="btn btn-gold-simple"
                   >
                     {data.ctaLabel}
@@ -76,14 +81,19 @@ export default function Header({ data, type = 'default' }: HeaderProps) {
               <Link
                 href={data.ctaUrl}
                 target={data.ctaOpenNewTab ? '_blank' : undefined}
+                rel={data.ctaOpenNewTab ? 'noopener noreferrer' : undefined}
                 className={`btn ${isInside ? 'btn-simple-white' : 'btn-gold-simple'}`}
               >
                 {data.ctaLabel}
               </Link>
             </div>
 
-            <div
-              className="header-hamburger min-1200:hidden max-1200:relative max-1200:z-99 flex flex-col gap-10 cursor-pointer"
+            <button
+              type="button"
+              aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={isMenuOpen}
+              aria-controls="main-nav"
+              className="header-hamburger min-1200:hidden max-1200:relative max-1200:z-99 flex flex-col gap-10 cursor-pointer bg-transparent border-0 p-0"
               onClick={() => setIsMenuOpen((prev) => !prev)}
             >
               <span
@@ -101,7 +111,7 @@ export default function Header({ data, type = 'default' }: HeaderProps) {
                 ${isMenuOpen ? 'bg-black -rotate-45 -translate-y-[6px]' : isInside ? 'bg-white' : 'bg-black'}
               `}
               />
-            </div>
+            </button>
           </div>
         </div>
       </div>

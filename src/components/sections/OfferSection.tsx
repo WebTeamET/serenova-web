@@ -4,16 +4,9 @@ import Button from '@/components/ui/Button'
 import { mapImage } from '@/contentful/mappers'
 import { ASSETS } from '@/config/assets'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-import { MARKS } from '@contentful/rich-text-types'
 import type { Document } from '@contentful/rich-text-types'
-import type { ReactNode } from 'react'
 import type { OfferSectionFields } from '@/types/sections'
-
-const richTextOptions = {
-  renderMark: {
-    [MARKS.BOLD]: (text: ReactNode) => <span>{text}</span>,
-  },
-}
+import { richTextOptions } from '@/utils/richText'
 
 function WhatWeDoLayout({ f }: { f: OfferSectionFields }) {
   const img1 = mapImage(f.image1)
@@ -66,9 +59,7 @@ function WhatWeDoLayout({ f }: { f: OfferSectionFields }) {
                 </div>
                 <div className="title">
                   <h2 className="h4">
-                    {f.title
-                      ? documentToReactComponents(f.title as unknown as Document, richTextOptions)
-                      : null}
+                    {f.title ? documentToReactComponents(f.title, richTextOptions) : null}
                   </h2>
                 </div>
                 {f.description && (
@@ -151,9 +142,7 @@ function OfferLayout({ f }: { f: OfferSectionFields }) {
               )}
               {f.title && (
                 <div className="offer-title h3-title">
-                  <h3>
-                    {documentToReactComponents(f.title as unknown as Document, richTextOptions)}
-                  </h3>
+                  <h3>{documentToReactComponents(f.title, richTextOptions)}</h3>
                 </div>
               )}
               {f.description && (
@@ -200,9 +189,7 @@ function OfferLayout({ f }: { f: OfferSectionFields }) {
   )
 }
 
-export default function OfferSection(fields: Record<string, unknown>) {
-  const f = fields as unknown as OfferSectionFields
-
+export default function OfferSection(f: OfferSectionFields) {
   if (f.variant === 'ZigZag') {
     return <WhatWeDoLayout f={f} />
   }

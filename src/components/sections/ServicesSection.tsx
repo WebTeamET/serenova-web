@@ -2,7 +2,6 @@
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
-import 'swiper/css'
 import 'swiper/css/pagination'
 import SectionHeader from '@/components/ui/SectionHeader'
 import ServiceCard from '@/components/ui/ServiceCard'
@@ -10,8 +9,7 @@ import TravelerCard from '@/components/ui/TravelerCard'
 import Button from '@/components/ui/Button'
 import type { ServicesSectionFields } from '@/types/sections'
 
-export default function ServicesSection(fields: Record<string, unknown>) {
-  const f = fields as unknown as ServicesSectionFields
+export default function ServicesSection(f: ServicesSectionFields) {
   const cards = (f.cards ?? []).filter((card): card is NonNullable<typeof card> => card != null)
   const isCarousel = f.variant === 'Carousel'
 

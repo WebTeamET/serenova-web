@@ -2,11 +2,10 @@ import Image from 'next/image'
 import Button from '@/components/ui/Button'
 import TourCard from '@/components/ui/TourCard'
 import { ASSETS } from '@/config/assets'
+import StaggerReveal from '@/components/ui/StaggerReveal'
 import type { TourListingSectionFields } from '@/types/sections'
 
-export default function TourListingSection(fields: Record<string, unknown>) {
-  const f = fields as unknown as TourListingSectionFields
-
+export default function TourListingSection(f: TourListingSectionFields) {
   return (
     <section className="tours-main relative bg-dark-cream py-60 min-1800:pt-[130px] min-1800:pb-[92px]">
       <div className="tour-leaf absolute bottom-0 left-0">
@@ -27,13 +26,13 @@ export default function TourListingSection(fields: Record<string, unknown>) {
             <div className="tours-title text-center">
               <h2 className="h4">{f.title}</h2>
             </div>
-            <div className="tours-list mt-40 min-1400:mt-62 grid grid-cols-1 min-768:grid-cols-2 min-1200:grid-cols-3 gap-x-30 min-1400:gap-x-40 gap-y-30 min-1400:gap-y-62">
+            <StaggerReveal className="tours-list mt-40 min-1400:mt-62 grid grid-cols-1 min-768:grid-cols-2 min-1200:grid-cols-3 gap-x-30 min-1400:gap-x-40 gap-y-30 min-1400:gap-y-62">
               {(f.tourItems ?? [])
                 .filter((item): item is NonNullable<typeof item> => item != null)
                 .map((item, i) => (
                   <TourCard key={item.sys?.id ?? i} item={item} />
                 ))}
-            </div>
+            </StaggerReveal>
             {f.buttonLabel && (
               <div className="tours-btn mt-40 min-1400:mt-62">
                 <Button href={f.buttonUrl ?? '/'} label={f.buttonLabel} className="mx-auto" />

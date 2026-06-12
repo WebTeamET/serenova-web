@@ -17,7 +17,6 @@ export default function TravelerCard({
       <Link href={card.fields.ctaUrl ?? '/'} className="traveler-card-section block group">
         {icon && (
           <div className="traveler-card-icon flex justify-center items-center w-[129px] h-[128px] mx-auto mb-22 relative">
-            {/* background SVG behind icon — replaces the HTML after: pseudo-element */}
             <span
               aria-hidden
               className="absolute w-full h-full left-0 top-0 bg-no-repeat bg-[length:100%_100%] pointer-events-none"

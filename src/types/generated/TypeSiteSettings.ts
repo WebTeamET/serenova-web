@@ -5,13 +5,13 @@ import type {
   EntrySkeletonType,
   LocaleCode,
 } from 'contentful'
-import type { TypeNavItemSkeleton } from './TypeNavItem'
+import type { TypeNavItemSkeleton as TypeNavItemsSkeleton } from './TypeNavItem'
 
 export interface TypeSiteSettingsFields {
   siteName: EntryFieldTypes.Symbol
   logo: EntryFieldTypes.AssetLink
   favicon?: EntryFieldTypes.AssetLink
-  primaryNav: EntryFieldTypes.EntryLink<TypeNavItemSkeleton>
+  primaryNav: EntryFieldTypes.EntryLink<TypeNavItemsSkeleton>
   bookingButtonLabel: EntryFieldTypes.Symbol
   bookingButtonUrl: EntryFieldTypes.Symbol
   footerText?: EntryFieldTypes.Symbol

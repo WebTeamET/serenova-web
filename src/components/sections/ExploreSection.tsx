@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { ASSETS } from '@/config/assets'
+import StaggerReveal from '@/components/ui/StaggerReveal'
 
 interface ExploreCard {
   cardTitle: string
@@ -30,7 +31,7 @@ const descriptionClass = [
 
 export default function ExploreSection(fields: Record<string, unknown>) {
   const title = fields.title as string | undefined
-  const cards = (fields.cards as unknown as ExploreCard[] | undefined) ?? []
+  const cards = (fields.cards as ExploreCard[] | undefined) ?? []
 
   return (
     <section className="explore-main relative py-60 min-1400:pb-0 min-1400:pt-[147px]">
@@ -56,7 +57,7 @@ export default function ExploreSection(fields: Record<string, unknown>) {
             </div>
 
             <div className="explore-right min-990:flex-[0_0_650px] min-1200:flex-[0_0_800px] min-1400:flex-[0_0_933px]">
-              <div className="explore-card-list flex flex-col min-640:flex-row gap-y-20 gap-x-30 min-1400:gap-x-[48px]">
+              <StaggerReveal className="explore-card-list flex flex-col min-640:flex-row gap-y-20 gap-x-30 min-1400:gap-x-[48px]">
                 {cards.map((card, index) => (
                   <Link
                     key={index}
@@ -65,6 +66,7 @@ export default function ExploreSection(fields: Record<string, unknown>) {
                   >
                     <div className={cardImageClass}>
                       <img
+                        loading="lazy"
                         src={card.image ?? ''}
                         alt={card.alt ?? card.cardTitle}
                         className="w-full h-auto aspect-[0.97/1] object-cover pt-13 pl-13"
@@ -82,7 +84,7 @@ export default function ExploreSection(fields: Record<string, unknown>) {
                     </div>
                   </Link>
                 ))}
-              </div>
+              </StaggerReveal>
             </div>
           </div>
         </div>

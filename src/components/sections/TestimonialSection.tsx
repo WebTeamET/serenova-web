@@ -1,10 +1,9 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useMemo } from 'react'
 import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import type { Swiper as SwiperType } from 'swiper'
-import 'swiper/css'
 import TestimonialCard from '@/components/ui/TestimonialCard'
 import { ASSETS } from '@/config/assets'
 
@@ -22,7 +21,7 @@ export default function TestimonialSection(fields: Record<string, unknown>) {
   const showLeaf = fields.showLeaf !== false
   const swiperRef = useRef<SwiperType | null>(null)
 
-  const slides = [...Array(3)].flatMap(() => testimonials)
+  const slides = useMemo(() => [...Array(3)].flatMap(() => testimonials), [testimonials])
 
   return (
     <section className="test-main relative py-60 min-1400:py-[147px]">

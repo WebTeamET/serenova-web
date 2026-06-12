@@ -21,11 +21,16 @@ export async function getPageBySlug(slug: string, preview = false): Promise<Page
 
   const rawSections: AnyEntry[] = entry.fields.sections ?? []
 
+  const ogImageUrl: string | undefined = entry.fields.ogImage?.fields?.file?.url
   return {
     id: entry.sys.id,
     title: entry.fields.title as string,
     slug: entry.fields.slug as string,
-    seo: entry.fields.seo as Page['seo'],
+    seo: {
+      title: (entry.fields.seoTitle as string) ?? '',
+      description: (entry.fields.seoDescription as string) ?? '',
+      image: ogImageUrl ? { url: `https:${ogImageUrl}`, alt: '' } : undefined,
+    },
     sections: rawSections.map(mapSection).filter((s): s is NonNullable<typeof s> => s !== null),
   }
 }

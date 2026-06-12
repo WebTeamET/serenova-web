@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Button from '@/components/ui/Button'
 import { ASSETS } from '@/config/assets'
+import StaggerReveal from '@/components/ui/StaggerReveal'
 import type { JournalSectionFields } from '@/types/sections'
 
 interface JournalItemJson {
@@ -25,8 +26,7 @@ function formatDate(iso: string): string {
   })
 }
 
-export default function JournalSection(fields: Record<string, unknown>) {
-  const f = fields as unknown as JournalSectionFields
+export default function JournalSection(f: JournalSectionFields) {
   const items = ((f.journalItem as unknown as JournalItemJson[] | undefined) ?? []).filter(
     (item) => !!item.title
   )
@@ -70,12 +70,13 @@ export default function JournalSection(fields: Record<string, unknown>) {
               <h2 className="h4">{f.title}</h2>
             </div>
 
-            <div className="journal-list grid grid-cols-1 min-576:grid-cols-2 min-990:grid-cols-3 min-1200:grid-cols-4 gap-x-32 gap-y-32 mt-40 min-1400:mt-[51px]">
+            <StaggerReveal className="journal-list grid grid-cols-1 min-576:grid-cols-2 min-990:grid-cols-3 min-1200:grid-cols-4 gap-x-32 gap-y-32 mt-40 min-1400:mt-[51px]">
               {items.map((item, index) => (
                 <div key={index} className="journal-card-main">
                   <Link href={item.url ?? '/'} className="journal-card-section group block">
                     <div className="journal-card-img transition-all duration-300 ease-in-out relative after:content-[''] after:absolute after:w-[calc(100%_-_8px)] after:h-[calc(100%_+_16px)] after:left-0 after:top-[-8px] after:border-[1px] after:border-solid after:border-secondary-800 after:opacity-0 group-hover:pl-8 group-hover:after:opacity-100">
                       <img
+                        loading="lazy"
                         src={item.image}
                         alt={item.alt || item.title}
                         className="w-full h-auto aspect-[4/3] object-cover transition-all duration-300 ease-in-out"
@@ -102,7 +103,7 @@ export default function JournalSection(fields: Record<string, unknown>) {
                   </Link>
                 </div>
               ))}
-            </div>
+            </StaggerReveal>
 
             {f.buttonLabel && (
               <div className="journal-btn mt-[43px]">
