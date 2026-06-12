@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { draftMode } from 'next/headers'
+import { draftMode, headers } from 'next/headers'
 import '@/styles/globals.css'
 import 'swiper/css'
 import Header from '@/components/layout/Header'
@@ -34,6 +34,8 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const { isEnabled: isPreview } = await draftMode()
+  const headersList = await headers()
+  const pathname = headersList.get('x-pathname') || '/'
   const [headerData, footerData] = await Promise.all([getSiteHeader(), getSiteFooter()])
 
   return (
@@ -55,7 +57,7 @@ export default async function RootLayout({
             >
               Skip to content
             </a>
-            {headerData && <Header data={headerData} />}
+            {headerData && <Header data={headerData} serverPathname={pathname} />}
             {children}
             {footerData && <Footer data={footerData} />}
           </ContentfulPreviewProvider>

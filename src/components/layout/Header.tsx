@@ -7,10 +7,12 @@ import type { SiteHeaderData } from '@/contentful/header.service'
 
 interface HeaderProps {
   data: SiteHeaderData
+  serverPathname: string
 }
 
-export default function Header({ data }: HeaderProps) {
-  const pathname = usePathname()
+export default function Header({ data, serverPathname }: HeaderProps) {
+  const clientPathname = usePathname()
+  const pathname = clientPathname ?? serverPathname
   const isInside = pathname !== '/'
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
