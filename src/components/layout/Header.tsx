@@ -7,12 +7,11 @@ import type { SiteHeaderData } from '@/contentful/header.service'
 
 interface HeaderProps {
   data: SiteHeaderData
-  type?: 'inside' | 'default'
 }
 
-export default function Header({ data, type = 'default' }: HeaderProps) {
-  const isInside = type === 'inside'
+export default function Header({ data }: HeaderProps) {
   const pathname = usePathname()
+  const isInside = pathname !== '/'
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
